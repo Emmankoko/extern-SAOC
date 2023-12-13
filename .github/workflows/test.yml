@@ -1,0 +1,51 @@
+name: Link_test
+
+on:
+  push:
+    branhces:
+      - main
+
+jobs:
+  main:
+    name: Run executable
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - {name : windows-2019, arch: x86_64 }
+        dc:
+          - ldc-latest
+        target:
+          - {name: msvc-2017, compiler: msvc, cxx-version: 2017}
+
+    runs-on: ${{ matrix.os.name }}
+    steps:
+
+    ## set up ldc using dlang-community action
+    - name : set up ldc
+      uses: dlang-community/setup-dlang@v1
+      with:
+        compiler: ${{ matrix.dc }}
+
+    ##checkout repo
+    - name: checkout
+      uses: actions/checkout@v4
+
+    ## set up msvc
+    - name: add vc toolset to path
+      uses: ilammy/msvc-dev-cmd@v1
+
+    ## env variables
+    - name: '[Windows] Set environment variables'
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        echo "VISUAL_STUDIO_LIB_NOT_DM=$(which lib.exe)" >> $GITHUB_ENV
+        echo "HOST_DMD=${{ env.DC }}" >> $GITHUB_ENV
+        if [ ${{ startsWith(matrix.dc, 'dmd') }} ]; then
+          echo "${{ github.workspace }}/tools/dm/bin/" >> $GITHUB_PATH
+        fi
+
+    - name: compile and link
+      run: ./myprivate_test/foo.exe
