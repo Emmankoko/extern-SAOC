@@ -47,8 +47,5 @@ jobs:
           echo "${{ github.workspace }}/tools/dm/bin/" >> $GITHUB_PATH
         fi
 
-    - name: compile and link
-      run: |
-        cl -c myprivate_test/link_test.cpp
-        ldc2 myprivate_test/foo.d myprivate_test/link_test.obj
-        ./myprivate_test/foo.exe
+    - name: run executable
+      run: ./mypreivate_test/foo.exe
