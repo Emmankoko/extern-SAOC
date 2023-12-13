@@ -26,17 +26,10 @@ extern(C++, class) struct list(Type, Allocator)
 
 	//references can't be aliased,'ref' has no effect in type aliases
 
-
 	//MEMBER FUNCTIONS
-
-
 	ref list opAssign();
 
-
-
 	@disable this();
-
-
 
 			 //allocator ctor
 			this(ref const allocator!Type);
