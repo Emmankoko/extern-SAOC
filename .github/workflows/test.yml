@@ -48,4 +48,4 @@ jobs:
         fi
 
     - name: compile and link
-      run: ./myprivate_test/foo.exe
+      run: ldc2 foo.d link_test.obj && ./myprivate_test/foo.exe
