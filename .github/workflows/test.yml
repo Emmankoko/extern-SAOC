@@ -48,4 +48,4 @@ jobs:
         fi
 
     - name: run executable
-      run: ./mypreivate_test/foo.exe
+      run: ./myprivate_test/foo.exe
