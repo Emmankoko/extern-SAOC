@@ -14,4 +14,9 @@ void main()
 	writeln(p.front); // expects 7
 	writeln(p.back); //expects 5
 	writeln(p.empty); //expects false
+	p.sort();
+	writeln(p.front); //expects 5
+	writeln(p.back);//expects 7 now since there's a sort
+	list!int q = 7;
+	//q.unique();
 }

@@ -136,10 +136,6 @@ extern(C++, class) struct list(Type, Allocator)
 
 			void unique(U)(U p);
 
-			size_type unique();
-
-			size_type unique(U)(U p);
-
 		private:
 			struct node
 			{
@@ -148,3 +144,12 @@ extern(C++, class) struct list(Type, Allocator)
 			}
 			node A;
 	}
+
+private:
+version(CppRuntime_Microsoft)
+{
+	extern(C++,class ) struct equal_to()
+	{
+
+	}
+}
