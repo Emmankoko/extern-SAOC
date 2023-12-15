@@ -4,6 +4,7 @@ import core.stdcpp.allocator;
 import core.stdcpp.xutility : StdNamespace;
 alias listNamespace = StdNamespace;
 extern(C++, (listNamespace)):
+	
 
 alias list(Type) = list!(Type, allocator!Type);
 extern(C++, class) struct list(Type, Allocator)
@@ -118,13 +119,13 @@ extern(C++, class) struct list(Type, Allocator)
 
 			void resize(size_type count, ref const value_type val);
 
-			void swap(ref const list!Type other) nothrow;
+			void swap(ref list!Type other) nothrow;
 
-			void merge( ref const list!Type other);
+			//void remove(const ref value_type val);
 
-			void merge(U)(ref const list!Type other, U comp);
-
-		//	void remove(const ref value_type val);
+			void merge( ref list!Type other);
+		
+			void merge(U)(ref list!Type other, U comp);
 
 			void reverse() nothrow;
 
@@ -133,9 +134,8 @@ extern(C++, class) struct list(Type, Allocator)
 			void sort(U)(U comp);
 
 			void unique();
-
-			void unique(U)(U p);
-
+			
+			void unique(U)(U _Pred);
 		private:
 			struct node
 			{
@@ -148,8 +148,15 @@ extern(C++, class) struct list(Type, Allocator)
 private:
 version(CppRuntime_Microsoft)
 {
-	extern(C++,class ) struct equal_to()
+	extern(C++) struct equal_to(T = void)
 	{
 
 	}
+
+	//might probably be moved to utility 
+	extern(C++) struct less(T = void)
+	{
+
+	}
+
 }
