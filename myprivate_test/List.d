@@ -37,7 +37,7 @@ extern(C++, class) struct list(Type, Allocator)
 			this(ref const allocator!Type);
 
 			//copy ctor
-			this(ref const list!Type __x);
+			this(ref const list);
 
 			 //list(n,value) ctor
 			this(size_type __n, ref const value_type value, ref const allocator!Type);
@@ -78,9 +78,9 @@ extern(C++, class) struct list(Type, Allocator)
 				this.resize(n, item);
 			}
 
-			extern(D) void remove(const value_type item)
+			extern(D) size_type remove(const value_type item)
 			{
-				this.remove(item);
+				return this.remove(item);
 			}
 
 			ref list opAssign(ref const list!Type other);
@@ -98,7 +98,6 @@ extern(C++, class) struct list(Type, Allocator)
 
 			pointer end() nothrow;
 
-			//const nothrow since c++11
 			bool empty() const nothrow;
 
 			size_type size() const nothrow;
@@ -148,6 +147,14 @@ extern(C++, class) struct list(Type, Allocator)
 private:
 version(CppRuntime_Microsoft)
 {
+	/*extern(C++) struct _List_node_remove_op
+	{
+		this(ref list) nothrow;
+		_Nodeptr _Transfer_back(const _Nodeptr _Removed);
+
+		~this();
+	}
+	*/
 	extern(C++) struct equal_to(T = void)
 	{
 
