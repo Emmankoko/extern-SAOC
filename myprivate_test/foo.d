@@ -34,6 +34,8 @@ void main()
 	writeln(p.front); // expects 3
 	writeln(q.front); //expects 5, q is now 5,7
 	writeln(p.size); // expects 6
+	auto N =list!int(p); //copy ctor
+	writeln(N.size); // expects 6
 	q.sort(); // q = 5,7
 	p.sort(); // 0,0,3,3,3,6
 	q.merge(p); // q = 0,0,3,3,3,5,6,7
@@ -41,6 +43,4 @@ void main()
 	writeln(q.front); // expects 0
 
 
-	
-	//q.unique();
 }
